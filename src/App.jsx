@@ -77,7 +77,6 @@ export default function App() {
     setIsLoading(true);
     setLoadingMessage(t.scanningDb || "Scanning...");
     resetProductFlow();
-    setBarcode(code);
 
     try {
       const result = await fetchFoodByBarcode(code);
@@ -153,16 +152,16 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 relative overflow-hidden
-                    bg-gradient-to-br from-emerald-100/80 via-teal-100/70 to-green-100/80">
+    <div className="min-h-screen flex items-center justify-center relative overflow-hidden
+                    bg-gradient-to-br from-emerald-100 via-teal-100 to-green-100">
 
-      {/* soft glow blobs */}
-      <div className="absolute -top-40 -left-40 w-96 h-96 bg-emerald-300/45 rounded-full blur-3xl"></div>
-      <div className="absolute top-1/2 -right-40 w-96 h-96 bg-teal-300/45 rounded-full blur-3xl"></div>
+      {/* Soft glow blobs */}
+      <div className="absolute -top-40 -left-40 w-[500px] h-[500px] bg-emerald-300/40 rounded-full blur-[140px]"></div>
+      <div className="absolute bottom-[-200px] right-[-200px] w-[500px] h-[500px] bg-teal-300/40 rounded-full blur-[140px]"></div>
 
-      {/* glass card */}
-      <div className="relative w-full max-w-md bg-white/30 backdrop-blur-2xl
-                      rounded-3xl shadow-2xl border border-white/45 p-6">
+      <div className="relative w-full max-w-md bg-white/35 backdrop-blur-xl
+                      rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.25)]
+                      border border-white/40 p-6">
 
         {step !== "scan" && step !== "manual" && (
           <div className="absolute top-4 right-4 z-20">
@@ -181,12 +180,73 @@ export default function App() {
         {isLoading && <LoadingOverlay message={loadingMessage} />}
         {infoMessage && <div className="text-center text-sm text-amber-800">{infoMessage}</div>}
 
-        {step === "home" && <HomeScreen t={t} onSelectAllergy={() => { setMode("allergy"); setStep("profile"); }} onSelectBMI={() => { setMode("bmi"); setStep("profile"); }} />}
-        {step === "profile" && <ProfileScreen t={t} profiles={profiles} selectedAllergies={selectedAllergies} setSelectedAllergies={setSelectedAllergies} mode={mode} height={height} weight={weight} setHeight={setHeight} setWeight={setWeight} onContinue={() => setStep("scan")} />}
-        {step === "scan" && <ScanScreen t={t} onDetected={handleBarcodeFound} onManualEntry={() => setStep("manual")} onChangeProfile={() => setStep("profile")} />}
-        {step === "manual" && <ManualEntryScreen t={t} productName={productName} variant={variant} setProductName={setProductName} setVariant={setVariant} onSearch={() => fetchIngredientsOnline(productName, variant)} onBack={() => setStep("scan")} />}
-        {step === "confirm" && <ConfirmScreen t={t} productName={productName} ingredients={ingredients} setIngredients={setIngredients} onAnalyze={analyzeSafety} onEdit={() => setStep("manual")} />}
-        {step === "result" && <ResultScreen t={t} verdict={verdict} riskLevel={riskLevel} ingredients={ingredients} keyIngredient={keyIngredient} explanation={explanation} onScanAnother={() => setStep("scan")} onChangeProfile={() => setStep("home")} />}
+        {step === "home" && (
+          <HomeScreen
+            t={t}
+            onSelectAllergy={() => { setMode("allergy"); setStep("profile"); }}
+            onSelectBMI={() => { setMode("bmi"); setStep("profile"); }}
+          />
+        )}
+
+        {step === "profile" && (
+          <ProfileScreen
+            t={t}
+            profiles={profiles}
+            selectedAllergies={selectedAllergies}
+            setSelectedAllergies={setSelectedAllergies}
+            mode={mode}
+            height={height}
+            weight={weight}
+            setHeight={setHeight}
+            setWeight={setWeight}
+            onContinue={() => setStep("scan")}
+          />
+        )}
+
+        {step === "scan" && (
+          <ScanScreen
+            t={t}
+            onDetected={handleBarcodeFound}
+            onManualEntry={() => setStep("manual")}
+            onChangeProfile={() => setStep("profile")}
+          />
+        )}
+
+        {step === "manual" && (
+          <ManualEntryScreen
+            t={t}
+            productName={productName}
+            variant={variant}
+            setProductName={setProductName}
+            setVariant={setVariant}
+            onSearch={() => fetchIngredientsOnline(productName, variant)}
+            onBack={() => setStep("scan")}
+          />
+        )}
+
+        {step === "confirm" && (
+          <ConfirmScreen
+            t={t}
+            productName={productName}
+            ingredients={ingredients}
+            setIngredients={setIngredients}
+            onAnalyze={analyzeSafety}
+            onEdit={() => setStep("manual")}
+          />
+        )}
+
+        {step === "result" && (
+          <ResultScreen
+            t={t}
+            verdict={verdict}
+            riskLevel={riskLevel}
+            ingredients={ingredients}
+            keyIngredient={keyIngredient}
+            explanation={explanation}
+            onScanAnother={() => setStep("scan")}
+            onChangeProfile={() => setStep("home")}
+          />
+        )}
       </div>
     </div>
   );

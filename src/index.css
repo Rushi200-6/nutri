@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: radial-gradient(circle at top left, #b7f7e0 0%, transparent 40%),
+              radial-gradient(circle at bottom right, #9fe0c3 0%, transparent 40%),
+              linear-gradient(135deg, #c8e7df 0%, #a9d3c9 100%);
+  background-attachment: fixed;
+}
