@@ -9,7 +9,7 @@ export default async function handler(req, res) {
       return res.status(200).json({ result: "SYSTEM ERROR: Method not allowed" });
     }
 
-    const apiKey = process.env.GEMINI_API_KEY;
+    const apiKey = process.env.nutriapi;
     if (!apiKey) {
       return res.status(200).json({ result: "SYSTEM ERROR: API Key is missing in Vercel Settings" });
     }
