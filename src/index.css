@@ -13,3 +13,10 @@ body {
               linear-gradient(135deg, #c8e7df 0%, #a9d3c9 100%);
   background-attachment: fixed;
 }
+@keyframes fadeInScale {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+.animate-fade-in-scale {
+  animation: fadeInScale 0.4s ease-out;
+}

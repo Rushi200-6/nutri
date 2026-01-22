@@ -8,62 +8,70 @@ export default function ManualEntryScreen({
   onBack,
 }) {
   return (
-    <div className="space-y-6 animate-fade-in">
-      {/* HEADER */}
-      <div className="text-center space-y-2 mb-6">
-        <h2 className="text-2xl font-bold tracking-tight text-white">
-          {t.productSearch}
+    <div className="space-y-6 animate-fade-in-scale">
+
+      {/* Header */}
+      <div className="text-center">
+        <h2 className="text-2xl font-bold text-slate-900">
+          {t.manualEntryTitle || "Enter Product Details"}
         </h2>
-        <p className="text-sm text-slate-400">
-          {t.productSearchDesc}
+        <p className="text-sm text-slate-600">
+          {t.manualEntrySubtitle || "We will fetch ingredients using AI"}
         </p>
       </div>
 
-      {/* FORM */}
-      <div className="bg-slate-900/50 backdrop-blur-xl rounded-2xl border border-slate-800 p-6 shadow-2xl space-y-4">
+      {/* Glass Card */}
+      <div className="relative bg-white/60 backdrop-blur-xl rounded-2xl border border-emerald-300/40 shadow-[0_0_40px_rgba(16,185,129,0.25)] p-6 space-y-4">
+
+        {/* Product Name */}
         <div>
-          <label className="block text-xs font-medium text-slate-400 mb-2 uppercase tracking-wide">
-            {t.productName}
+          <label className="text-xs font-semibold text-slate-600 uppercase">
+            {t.productName || "Product Name"}
           </label>
           <input
             type="text"
-            placeholder="e.g., Doritos Tortilla Chips"
-            className="w-full bg-slate-800/60 border border-slate-700 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 px-4 py-3.5 rounded-xl text-white placeholder:text-slate-600 outline-none transition-all duration-200"
             value={productName}
             onChange={(e) => setProductName(e.target.value)}
+            placeholder="e.g. Parle-G Biscuits"
+            className="w-full mt-1 px-4 py-3 rounded-xl bg-white/70 border border-slate-300
+                       focus:outline-none focus:ring-2 focus:ring-emerald-400 text-slate-800"
           />
         </div>
 
+        {/* Variant */}
         <div>
-          <label className="block text-xs font-medium text-slate-400 mb-2 uppercase tracking-wide">
-            {t.variant}
+          <label className="text-xs font-semibold text-slate-600 uppercase">
+            {t.variant || "Variant (Optional)"}
           </label>
           <input
             type="text"
-            placeholder="e.g., Nacho Cheese"
-            className="w-full bg-slate-800/60 border border-slate-700 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 px-4 py-3.5 rounded-xl text-white placeholder:text-slate-600 outline-none transition-all duration-200"
             value={variant}
             onChange={(e) => setVariant(e.target.value)}
+            placeholder="e.g. Chocolate Cream"
+            className="w-full mt-1 px-4 py-3 rounded-xl bg-white/70 border border-slate-300
+                       focus:outline-none focus:ring-2 focus:ring-emerald-400 text-slate-800"
           />
         </div>
-      </div>
 
-      {/* ACTIONS */}
-      <div className="space-y-3">
-        <button
-          onClick={onSearch}
-          disabled={!productName.trim()}
-          className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:from-slate-700 disabled:to-slate-800 py-4 rounded-xl font-semibold text-white shadow-lg disabled:shadow-none transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          {t.searchIngredients}
-        </button>
+        {/* Buttons */}
+        <div className="flex flex-col gap-3 pt-2">
+          <button
+            onClick={onSearch}
+            className="w-full py-3 rounded-xl font-semibold text-white
+                       bg-gradient-to-r from-emerald-500 to-green-600
+                       hover:from-emerald-600 hover:to-green-700
+                       shadow-lg shadow-emerald-500/30 transition-all"
+          >
+            🔍 {t.searchIngredients || "Fetch Ingredients"}
+          </button>
 
-        <button
-          onClick={onBack}
-          className="w-full text-slate-500 hover:text-slate-400 text-sm py-2 transition-colors"
-        >
-          {t.backToScanner}
-        </button>
+          <button
+            onClick={onBack}
+            className="w-full py-2 text-sm text-slate-500 hover:text-slate-700 transition"
+          >
+            ← {t.back || "Go Back"}
+          </button>
+        </div>
       </div>
     </div>
   );
