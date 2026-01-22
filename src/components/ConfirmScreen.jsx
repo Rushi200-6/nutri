@@ -7,16 +7,12 @@ export default function ConfirmScreen({
   onEdit,
 }) {
   return (
-    <div className="space-y-8 animate-fade-in">
-
+    <div className="space-y-6 animate-fade-in">
       {/* HEADER */}
-      <div className="text-center space-y-3">
-        <div className="mx-auto w-16 h-16 rounded-full 
-                        bg-emerald-100/70 backdrop-blur 
-                        border border-emerald-300 shadow-lg
-                        flex items-center justify-center">
+      <div className="text-center space-y-3 mb-6">
+        <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-green-600/20 border border-green-600/30 mb-2">
           <svg
-            className="w-8 h-8 text-emerald-600"
+            className="w-7 h-7 text-green-500"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -30,37 +26,28 @@ export default function ConfirmScreen({
           </svg>
         </div>
 
-        <h2 className="text-xl font-extrabold tracking-wide
-                       bg-gradient-to-r from-emerald-700 to-teal-600
-                       bg-clip-text text-transparent">
+        <h2 className="text-xl font-bold tracking-tight text-white">
           {productName}
         </h2>
 
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 
-                        bg-emerald-100/70 backdrop-blur 
-                        border border-emerald-300 rounded-full shadow-sm">
-          <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-          <span className="text-xs font-semibold text-emerald-800">
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-green-600/20 border border-green-600/30 rounded-full">
+          <div className="w-1.5 h-1.5 rounded-full bg-green-500"></div>
+          <span className="text-xs font-medium text-green-400">
             Ingredients Retrieved
           </span>
         </div>
       </div>
 
       {/* INGREDIENT TEXTAREA */}
-      <div className="bg-white/45 backdrop-blur-2xl rounded-2xl 
-                      border border-emerald-200/60 p-6 shadow-xl">
-        <label className="block text-xs font-semibold text-emerald-800 mb-3 uppercase tracking-wide">
+      <div className="bg-slate-900/50 backdrop-blur-xl rounded-2xl border border-slate-800 p-6 shadow-2xl">
+        <label className="block text-xs font-medium text-slate-400 mb-3 uppercase tracking-wide">
           {t.ingredientList}
         </label>
 
         <textarea
           value={ingredients}
           onChange={(e) => setIngredients(e.target.value)}
-          className="w-full h-40 bg-white/60 border border-emerald-200 
-                     focus:border-emerald-500 focus:ring-2 focus:ring-emerald-400/40
-                     px-4 py-3 rounded-xl text-sm text-emerald-900 
-                     placeholder:text-emerald-400 outline-none resize-none 
-                     transition-all duration-300"
+          className="w-full h-40 bg-slate-800/60 border border-slate-700 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 px-4 py-3 rounded-xl text-sm text-slate-300 outline-none resize-none transition-all duration-200"
           placeholder="Ingredients will appear here..."
         />
       </div>
@@ -70,20 +57,14 @@ export default function ConfirmScreen({
         <button
           onClick={onAnalyze}
           disabled={!ingredients.trim()}
-          className="w-full py-4 rounded-2xl font-semibold text-white
-                     bg-gradient-to-r from-emerald-600 to-teal-600
-                     shadow-lg shadow-emerald-300/40
-                     transition-all duration-300
-                     hover:scale-[1.02] hover:shadow-emerald-400/60
-                     disabled:opacity-50 disabled:scale-100 disabled:shadow-none"
+          className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:from-slate-700 disabled:to-slate-800 py-4 rounded-xl font-semibold text-white shadow-lg disabled:shadow-none transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50"
         >
           {t.analyze}
         </button>
 
         <button
           onClick={onEdit}
-          className="w-full text-emerald-700 hover:text-emerald-900 
-                     text-sm py-2 transition-colors"
+          className="w-full text-slate-500 hover:text-slate-400 text-sm py-2 transition-colors"
         >
           {t.editDetails}
         </button>

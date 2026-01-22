@@ -1,99 +1,60 @@
-import logo from "../assets/nutriscope-logo.png";
-import allergyIcon from "../assets/allergy-icon.png";
-import bmiIcon from "../assets/bmi-icon.png";
-
 export default function HomeScreen({ t, onSelectAllergy, onSelectBMI }) {
-  return (
-    <div className="space-y-12 text-center animate-fade-in">
+    return (
+        <div className="space-y-8 animate-fade-in text-center">
 
-      {/* LOGO */}
-      <div className="flex flex-col items-center gap-3">
-        <div className="w-20 h-20 aspect-square rounded-full 
-                        bg-white/60 backdrop-blur-2xl
-                        border border-emerald-200/60 shadow-xl
-                        flex items-center justify-center overflow-hidden
-                        transition-all duration-300 hover:scale-105 hover:shadow-emerald-300/50">
-          <img
-            src={logo}
-            alt="Nutri-Scope Logo"
-            className="w-full h-full object-cover scale-110"
-          />
+            {/* LOGO */}
+            <div className="flex flex-col items-center gap-3">
+                <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center shadow-lg shadow-blue-900/40">
+                    <span className="text-3xl font-bold text-white">🧬</span>
+                </div>
+
+                <div className="text-center space-y-1">
+                    <h1 className="text-3xl font-bold text-white">
+                        {t.appTitle}
+                    </h1>
+
+                    <p className="text-sm font-semibold tracking-wide text-slate-400">
+                        NutriScope
+                    </p>
+                </div>
+
+                <p className="text-sm text-slate-400 max-w-xs">
+                    {t.appSubtitle || "Scan food products safely based on your health profile"}
+                </p>
+            </div>
+
+            {/* OPTIONS */}
+            <div className="space-y-4 text-left">
+
+                {/* Allergy Only */}
+                <button
+                    onClick={onSelectAllergy}
+                    className="w-full p-6 rounded-2xl bg-slate-900/60 border border-slate-700
+                     hover:border-blue-500 hover:bg-slate-900 transition-all"
+                >
+                    <h2 className="text-lg font-semibold text-white flex items-center gap-2">
+                        🩺 Allergy Scan
+                    </h2>
+                    <p className="text-sm text-slate-400 mt-1">
+                        Scan products strictly based on allergies or dietary restrictions.
+                    </p>
+                </button>
+
+                {/* BMI + Allergy */}
+                <button
+                    onClick={onSelectBMI}
+                    className="w-full p-6 rounded-2xl bg-slate-900/60 border border-slate-700
+                     hover:border-green-500 hover:bg-slate-900 transition-all"
+                >
+                    <h2 className="text-lg font-semibold text-white flex items-center gap-2">
+                        📊 BMI Health Scan
+                    </h2>
+                    <p className="text-sm text-slate-400 mt-1">
+                        Personalized safety analysis using BMI and allergy context.
+                    </p>
+                </button>
+
+            </div>
         </div>
-
-        <h1 className="text-3xl font-extrabold tracking-wide text-emerald-900">
-          Nutri-Scope
-        </h1>
-        <p className="text-xs tracking-widest text-emerald-700">
-          AI NUTRITION & SAFETY INTELLIGENCE
-        </p>
-      </div>
-
-      {/* CARDS */}
-      <div className="space-y-6">
-
-        {/* Allergy Scan */}
-        <button
-          onClick={onSelectAllergy}
-          className="group w-full p-6 rounded-3xl flex items-center gap-4
-                     bg-white/55 backdrop-blur-xl border border-emerald-200/50
-                     shadow-lg transition-all duration-300
-                     hover:scale-[1.02] hover:shadow-emerald-300/60"
-        >
-          <div className="w-14 h-14 min-w-[56px] min-h-[56px] aspect-square flex-shrink-0
-                          rounded-full bg-white/70 backdrop-blur
-                          border border-emerald-200/60
-                          flex items-center justify-center overflow-hidden
-                          transition-all duration-300
-                          group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-emerald-300/50">
-            <img
-              src={allergyIcon}
-              alt="Allergy Scan"
-              className="w-full h-full object-cover scale-125"
-            />
-          </div>
-
-          <div className="text-left">
-            <h2 className="text-lg font-semibold text-emerald-900">
-              Allergy Scan
-            </h2>
-            <p className="text-sm text-emerald-700">
-              Detect harmful or restricted ingredients using AI.
-            </p>
-          </div>
-        </button>
-
-        {/* BMI Health Scan */}
-        <button
-          onClick={onSelectBMI}
-          className="group w-full p-6 rounded-3xl flex items-center gap-4
-                     bg-white/55 backdrop-blur-xl border border-teal-200/50
-                     shadow-lg transition-all duration-300
-                     hover:scale-[1.02] hover:shadow-teal-300/60"
-        >
-          <div className="w-14 h-14 min-w-[56px] min-h-[56px] aspect-square flex-shrink-0
-                          rounded-full bg-white/70 backdrop-blur
-                          border border-teal-200/60
-                          flex items-center justify-center overflow-hidden
-                          transition-all duration-300
-                          group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-teal-300/50">
-            <img
-              src={bmiIcon}
-              alt="BMI Health Scan"
-              className="w-full h-full object-cover scale-125"
-            />
-          </div>
-
-          <div className="text-left">
-            <h2 className="text-lg font-semibold text-emerald-900">
-              BMI Health Scan
-            </h2>
-            <p className="text-sm text-emerald-700">
-              Analyze food safety based on your body metrics.
-            </p>
-          </div>
-        </button>
-
-      </div>
-    </div>
-  );
+    );
 }
