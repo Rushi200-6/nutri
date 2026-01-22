@@ -130,18 +130,21 @@ export default function App() {
     setLoadingMessage(t.analyzing || "Analyzing...");
 
     try {
-      const text = await callGemini("Analyze product safety.");
-      const clean = text.replace(/```json|```/g, "").trim();
-      const match = clean.match(/\{[\s\S]*\}/);
-      const json = match ? JSON.parse(match[0]) : {};
+      const response = await callGemini("Analyze product safety.");
+      if (!response) throw new Error("No AI response");
+
+      const json = typeof response === "string"
+        ? JSON.parse(response)
+        : response;
 
       setVerdict((json.verdict || "CAUTION").toUpperCase());
       setRiskLevel(json.risk_level || "Low");
       setKeyIngredient(json.key_ingredient || "Unknown");
-      setExplanation(json.explanation || "AI unavailable. Showing fallback result.");
+      setExplanation(json.explanation || "No explanation available.");
       setStep("result");
+
     } catch (e) {
-      console.error("Analysis crash prevented:", e);
+      console.error("Analysis failed:", e);
       setVerdict("CAUTION");
       setRiskLevel("Low");
       setKeyIngredient("Unknown");
@@ -162,7 +165,6 @@ export default function App() {
       <div className="relative w-full max-w-md bg-white/30 backdrop-blur-2xl
                       rounded-3xl shadow-2xl border border-white/45 p-6">
 
-        {/* Hide language selector on scan & manual */}
         {step !== "scan" && step !== "manual" && (
           <div className="absolute top-4 right-4 z-20">
             <LanguageSelector language={language} setLanguage={setLanguage} />
