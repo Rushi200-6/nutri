@@ -1,25 +1,21 @@
 export async function callGemini(prompt) {
   try {
-    const res = await fetch("/api/analyze", {
+    const response = await fetch("/api/analyze", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({ prompt }),
     });
 
-    if (!res.ok) throw new Error("AI service unavailable");
+    if (!response.ok) {
+      throw new Error("Server error");
+    }
 
-    const data = await res.text();
-    return data;
+    const text = await response.text(); // IMPORTANT: text, not JSON
+    return text;
   } catch (error) {
-    console.error("Gemini API Error:", error);
-
-    // Fallback so app never crashes (mobile safe)
-    return JSON.stringify({
-      verdict: "CAUTION",
-      risk_level: "Low",
-      key_ingredient: "Unknown",
-      explanation:
-        "AI service is temporarily unavailable. Showing safe fallback result.",
-    });
+    console.error("Gemini call failed:", error);
+    return null;
   }
 }
