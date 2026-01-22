@@ -2,19 +2,17 @@ export async function callGemini(prompt) {
   try {
     const res = await fetch("/api/analyze", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ prompt }),
     });
 
     if (!res.ok) {
-      const err = await res.text();
-      throw new Error(err || "API failed");
+      console.error("HTTP Error:", res.status);
+      return null;
     }
 
-    const data = await res.json(); // ✅ must be JSON
-    return data.result;            // your backend sends { result: "..." }
+    const data = await res.json();   // IMPORTANT: parse JSON
+    return data.result;              // backend sends { result: "..." }
 
   } catch (e) {
     console.error("Gemini call failed:", e);
