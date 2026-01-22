@@ -7,67 +7,75 @@ export default function ConfirmScreen({
   onEdit,
 }) {
   return (
-    <div className="space-y-6 animate-fade-in">
-      {/* HEADER */}
-      <div className="text-center space-y-3 mb-6">
-        <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-green-600/20 border border-green-600/30 mb-2">
-          <svg
-            className="w-7 h-7 text-green-500"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M5 13l4 4L19 7"
-            />
-          </svg>
-        </div>
+    <div className="space-y-8 animate-fade-in-scale">
 
-        <h2 className="text-xl font-bold tracking-tight text-white">
-          {productName}
+      {/* Header */}
+      <div className="text-center space-y-2">
+        <h2 className="text-3xl font-bold tracking-tight text-slate-900">
+          Confirm Ingredients
         </h2>
+        <p className="text-sm text-slate-600">
+          Review and edit ingredients before safety analysis
+        </p>
+      </div>
 
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-green-600/20 border border-green-600/30 rounded-full">
-          <div className="w-1.5 h-1.5 rounded-full bg-green-500"></div>
-          <span className="text-xs font-medium text-green-400">
+      {/* Glass Card */}
+      <div className="relative bg-white/70 backdrop-blur-2xl rounded-3xl 
+                      border border-emerald-200/60 
+                      shadow-[0_0_60px_rgba(16,185,129,0.25)] 
+                      p-7 space-y-5">
+
+        {/* Soft Glow Blob */}
+        <div className="absolute -top-12 -right-12 w-40 h-40 bg-emerald-400/20 rounded-full blur-3xl"></div>
+
+        {/* Product Name */}
+        <div className="text-center">
+          <h3 className="text-xl font-semibold text-slate-800">{productName}</h3>
+          <span className="inline-block mt-1 px-3 py-1 text-xs rounded-full
+                           bg-emerald-100 text-emerald-700 font-medium">
             Ingredients Retrieved
           </span>
         </div>
-      </div>
 
-      {/* INGREDIENT TEXTAREA */}
-      <div className="bg-slate-900/50 backdrop-blur-xl rounded-2xl border border-slate-800 p-6 shadow-2xl">
-        <label className="block text-xs font-medium text-slate-400 mb-3 uppercase tracking-wide">
-          {t.ingredientList}
-        </label>
+        {/* Ingredients Box */}
+        <div className="space-y-2">
+          <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+            {t.ingredientList}
+          </label>
 
-        <textarea
-          value={ingredients}
-          onChange={(e) => setIngredients(e.target.value)}
-          className="w-full h-40 bg-slate-800/60 border border-slate-700 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 px-4 py-3 rounded-xl text-sm text-slate-300 outline-none resize-none transition-all duration-200"
-          placeholder="Ingredients will appear here..."
-        />
-      </div>
+          <textarea
+            value={ingredients}
+            onChange={(e) => setIngredients(e.target.value)}
+            className="w-full h-44 rounded-xl bg-white/80 border border-slate-300
+                       focus:outline-none focus:ring-2 focus:ring-emerald-400
+                       px-4 py-3 text-sm text-slate-800 placeholder-slate-400
+                       resize-none transition"
+            placeholder="Ingredients will appear here..."
+          />
+        </div>
 
-      {/* ACTIONS */}
-      <div className="space-y-3">
-        <button
-          onClick={onAnalyze}
-          disabled={!ingredients.trim()}
-          className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:from-slate-700 disabled:to-slate-800 py-4 rounded-xl font-semibold text-white shadow-lg disabled:shadow-none transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          {t.analyze}
-        </button>
+        {/* Actions */}
+        <div className="pt-3 space-y-3">
+          <button
+            onClick={onAnalyze}
+            disabled={!ingredients.trim()}
+            className="w-full py-3.5 rounded-xl font-semibold text-white
+                       bg-gradient-to-r from-emerald-500 to-green-600
+                       hover:from-emerald-600 hover:to-green-700
+                       shadow-lg shadow-emerald-500/30
+                       transition-all duration-200
+                       disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            🧠 Analyze Safety
+          </button>
 
-        <button
-          onClick={onEdit}
-          className="w-full text-slate-500 hover:text-slate-400 text-sm py-2 transition-colors"
-        >
-          {t.editDetails}
-        </button>
+          <button
+            onClick={onEdit}
+            className="w-full py-2 text-sm text-slate-500 hover:text-slate-700 transition"
+          >
+            ✎ Edit Details
+          </button>
+        </div>
       </div>
     </div>
   );
