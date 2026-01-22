@@ -2,79 +2,74 @@ export default function ResultScreen({
   t,
   verdict,
   riskLevel,
-  profile,
-  barcode,
   ingredients,
   keyIngredient,
   explanation,
-  height,
-  weight,
   onScanAnother,
   onChangeProfile,
 }) {
-  // Safety guards (prevent black screen)
-  const safeVerdict = verdict ? verdict.toUpperCase() : "CAUTION";
-  const safeRisk = riskLevel || "Low";
-  const safeKey = keyIngredient || "Unknown";
-  const safeExplain = explanation || "No explanation available.";
-  const safeIngredients = ingredients || "No ingredients found.";
-
-  const theme =
-    safeVerdict === "SAFE"
-      ? "bg-emerald-100 border-emerald-300 text-emerald-800"
-      : safeVerdict === "CAUTION"
-      ? "bg-yellow-100 border-yellow-300 text-yellow-800"
-      : "bg-red-100 border-red-300 text-red-800";
+  const verdictColor =
+    verdict === "SAFE"
+      ? "bg-emerald-100 text-emerald-900 border-emerald-300"
+      : verdict === "UNSAFE"
+      ? "bg-red-100 text-red-900 border-red-300"
+      : "bg-yellow-100 text-yellow-900 border-yellow-300";
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 text-emerald-900">
 
-      {/* Verdict */}
-      <div className={`p-4 rounded-xl border ${theme} text-center`}>
-        <h2 className="text-xl font-bold">{safeVerdict}</h2>
-        <p className="text-sm">Risk Level: {safeRisk}</p>
+      {/* Verdict Card */}
+      <div className={`rounded-2xl p-4 border shadow ${verdictColor}`}>
+        <h2 className="text-xl font-bold text-center">{verdict}</h2>
+        <p className="text-center text-sm mt-1">
+          {t.riskLevel || "Risk Level"}: {riskLevel}
+        </p>
       </div>
 
       {/* Key Ingredient */}
-      <div className="p-4 rounded-xl bg-white/70 border border-emerald-200">
-        <h3 className="text-sm font-semibold text-emerald-700 mb-1">
-          Key Ingredient
+      <div className="bg-white/60 backdrop-blur rounded-2xl p-4 border border-white/40 shadow">
+        <h3 className="font-semibold text-emerald-800 mb-1">
+          {t.keyIngredient || "Key Ingredient"}
         </h3>
-        <p>{safeKey}</p>
+        <p className="text-emerald-700">
+          {keyIngredient || "Unknown"}
+        </p>
       </div>
 
       {/* Explanation */}
-      <div className="p-4 rounded-xl bg-white/70 border border-emerald-200">
-        <h3 className="text-sm font-semibold text-emerald-700 mb-1">
-          Medical Explanation
+      <div className="bg-white/60 backdrop-blur rounded-2xl p-4 border border-white/40 shadow">
+        <h3 className="font-semibold text-emerald-800 mb-1">
+          {t.medicalExplanation || "Medical Explanation"}
         </h3>
-        <p className="text-sm">{safeExplain}</p>
+        <p className="text-emerald-700 leading-relaxed text-sm">
+          {explanation}
+        </p>
       </div>
 
       {/* Ingredients */}
-      <div className="p-4 rounded-xl bg-white/70 border border-emerald-200">
-        <h3 className="text-sm font-semibold text-emerald-700 mb-1">
-          Ingredient List
+      <div className="bg-white/60 backdrop-blur rounded-2xl p-4 border border-white/40 shadow">
+        <h3 className="font-semibold text-emerald-800 mb-2">
+          {t.ingredients || "Ingredient List"}
         </h3>
-        <p className="text-xs whitespace-pre-wrap">{safeIngredients}</p>
+        <div className="text-emerald-700 text-sm whitespace-pre-wrap leading-relaxed">
+          {ingredients}
+        </div>
       </div>
 
       {/* Actions */}
-      <div className="space-y-3">
-        <button
-          onClick={onScanAnother}
-          className="w-full py-3 rounded-xl bg-emerald-600 text-white font-semibold"
-        >
-          {t.scanAnother || "Scan Another"}
-        </button>
+      <button
+        onClick={onScanAnother}
+        className="w-full py-3 rounded-xl bg-emerald-600 text-white font-semibold shadow hover:bg-emerald-700 transition"
+      >
+        {t.scanAnother || "Scan Another"}
+      </button>
 
-        <button
-          onClick={onChangeProfile}
-          className="w-full py-2 text-emerald-700 text-sm"
-        >
-          {t.changeProfile || "Change Profile"}
-        </button>
-      </div>
+      <button
+        onClick={onChangeProfile}
+        className="w-full text-sm text-emerald-800 hover:underline"
+      >
+        {t.changeProfile || "Change Profile"}
+      </button>
     </div>
   );
 }
